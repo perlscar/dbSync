@@ -1,5 +1,7 @@
 package com.jumbotail.database.utils;
 
+import com.jumbotail.exception.EntryNotPresentException;
+import com.jumbotail.exception.FileDBException;
 import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.Assert;
@@ -16,8 +18,9 @@ public class FileDBUtilsTest {
     private static final String FILENAME = "a.txt";
 
     @Before
-    public void beforeMethod() {
+    public void beforeMethod() throws IOException {
         file = new File(FILENAME);
+        file.createNewFile();
     }
 
     @After
@@ -70,6 +73,12 @@ public class FileDBUtilsTest {
         isPresent = FileDBUtils.isPresent(file, entry5);
         Assert.assertTrue(isPresent);
 
+    }
+
+    @Test(expected = EntryNotPresentException.class)
+    public void testException() throws FileDBException, EntryNotPresentException {
+        String entry1 = "entry1";
+        FileDBUtils.dropEntry(file, entry1);
     }
 
     @Test
