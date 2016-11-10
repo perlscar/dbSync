@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 public class FileDBUtilsTest {
 
@@ -141,5 +142,8 @@ public class FileDBUtilsTest {
         value = FileDBUtils.readEntry(file, entry5);
         Assert.assertTrue(isPresent);
         Assert.assertEquals(value5, value);
+
+        List<String> entries = FileDBUtils.getEntries(file);
+        Assert.assertEquals(2, entries.size());
     }
 }

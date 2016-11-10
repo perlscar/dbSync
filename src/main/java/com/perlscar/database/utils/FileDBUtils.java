@@ -3,6 +3,7 @@ package com.perlscar.database.utils;
 import com.google.common.collect.Lists;
 import com.perlscar.exception.EntryNotPresentException;
 import com.perlscar.exception.FileDBException;
+import com.perlscar.exception.ObjectNotAccessibleException;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.LineIterator;
 
@@ -107,6 +108,27 @@ public class FileDBUtils {
         } catch (IOException e) {
             e.printStackTrace();
             throw new FileDBException(e);
+        } finally {
+            if(lineIterator != null) {
+                lineIterator.close();
+            }
+        }
+    }
+
+    public static List<String> getEntries(File f) throws ObjectNotAccessibleException {
+        LineIterator lineIterator = null;
+        try {
+            lineIterator = FileUtils.lineIterator(f);
+            List<String> entries = Lists.newArrayList();
+            while (lineIterator.hasNext()) {
+                String line = lineIterator.nextLine();
+                String entry = line.substring(0, line.indexOf(FIELD_SEPARATOR));
+                entries.add(entry);
+            }
+            return entries;
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new ObjectNotAccessibleException(e);
         } finally {
             if(lineIterator != null) {
                 lineIterator.close();
