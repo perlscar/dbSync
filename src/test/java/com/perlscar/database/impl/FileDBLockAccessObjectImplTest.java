@@ -34,6 +34,8 @@ public class FileDBLockAccessObjectImplTest {
         String id1 = "id1";
         String id2 = "id2";
 
+        Integer val = 1;
+
         boolean isLocked = fileDBLockAccessObject.isLocked(id1);
         Assert.assertFalse(isLocked);
 
@@ -49,8 +51,11 @@ public class FileDBLockAccessObjectImplTest {
         isLocked = fileDBLockAccessObject.isLocked(id1);
         Assert.assertTrue(isLocked);
 
-        boolean isLock2Fetched = fileDBLockAccessObject.fetchLock(id2);
+        boolean isLock2Fetched = fileDBLockAccessObject.fetchLock(id2, val.toString());
         Assert.assertTrue(isLock2Fetched);
+
+        Integer metadata = Integer.parseInt(fileDBLockAccessObject.readLockMetadata(id2));
+        Assert.assertEquals(val, metadata);
 
         isLockReleased = fileDBLockAccessObject.releaseLock(id1);
         Assert.assertTrue(isLockReleased);

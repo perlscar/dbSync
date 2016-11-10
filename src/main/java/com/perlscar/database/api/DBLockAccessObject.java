@@ -1,5 +1,6 @@
 package com.perlscar.database.api;
 
+import com.perlscar.exception.EntryNotPresentException;
 import com.perlscar.exception.ObjectNotAccessibleException;
 
 /**
@@ -20,6 +21,21 @@ public interface DBLockAccessObject {
      * @return true if lock is acquired, false otherwise
      */
     public boolean fetchLock(String id) throws ObjectNotAccessibleException;
+
+    /**
+     * Acquires a lock against a given id with metadata
+     * @param id : id against which the lock needs to be acquired
+     * @return true if lock is acquired, false otherwise
+     */
+    public boolean fetchLock(String id, String metadata) throws ObjectNotAccessibleException;
+
+    /**
+     * Acquires a lock against a given id with metadata
+     * @param id : id against which the lock needs to be acquired
+     * @return true if lock is acquired, false otherwise
+     */
+    public String readLockMetadata(String id) throws ObjectNotAccessibleException, EntryNotPresentException;
+
 
     /**
      * Release an acquired lock against a given id

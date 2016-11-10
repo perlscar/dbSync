@@ -47,6 +47,29 @@ public class FileDBLockAccessObjectImpl implements DBLockAccessObject {
     }
 
     @Override
+    public boolean fetchLock(String id, String metadata) throws ObjectNotAccessibleException {
+        try {
+            if(FileDBUtils.isPresent(file, id)) {
+                return false;
+            }
+            return FileDBUtils.createEntry(file, id, metadata);
+        } catch (FileDBException e) {
+            e.printStackTrace();
+            throw new ObjectNotAccessibleException(e);
+        }
+    }
+
+    @Override
+    public String readLockMetadata(String id) throws ObjectNotAccessibleException, EntryNotPresentException {
+        try {
+            return FileDBUtils.readEntry(file, id);
+        } catch (FileDBException e) {
+            e.printStackTrace();
+            throw new ObjectNotAccessibleException(e);
+        }
+    }
+
+    @Override
     public boolean releaseLock(String id) throws ObjectNotAccessibleException {
         try {
             return FileDBUtils.dropEntry(file, id);
