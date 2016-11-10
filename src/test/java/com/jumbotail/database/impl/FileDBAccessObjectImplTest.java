@@ -13,7 +13,7 @@ import java.io.IOException;
 
 public class FileDBAccessObjectImplTest {
 
-    private static final String FILENAME = "a.txt";
+    private static final String FILENAME = "db.txt";
     private DBAccessObject fileDBAccessObject;
 
     @Before

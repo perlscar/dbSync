@@ -20,4 +20,11 @@ public interface DBLockAccessObject {
      * @return true if lock is acquired, false otherwise
      */
     public boolean fetchLock(String id) throws ObjectNotAccessibleException;
+
+    /**
+     * Release an acquired lock against a given id
+     * @param id : id against which the lock needs to be released
+     * @return true if lock isn't acquired or successfully released, false otherwise
+     */
+    public boolean releaseLock(String id) throws ObjectNotAccessibleException;
 }

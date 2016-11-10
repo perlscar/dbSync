@@ -1,8 +1,6 @@
 package com.jumbotail.database.api;
 
-import com.jumbotail.contract.EntryCreationResponse;
-import com.jumbotail.contract.EntryDeletionResponse;
-import com.jumbotail.contract.EntryUpdationResponse;
+import com.jumbotail.exception.EntryNotPresentException;
 import com.jumbotail.exception.ObjectNotAccessibleException;
 
 /**
@@ -15,7 +13,7 @@ public interface DBAccessObject {
      * @return Object to be retrieved
      * @throws ObjectNotAccessibleException
      */
-    public Object getById(String id) throws ObjectNotAccessibleException;
+    public String getById(String id) throws ObjectNotAccessibleException, EntryNotPresentException;
 
     /**
      * Create a new entry
@@ -24,7 +22,7 @@ public interface DBAccessObject {
      * @return EntryCreationResponse : describes the status of create request
      * @throws ObjectNotAccessibleException
      */
-    public EntryCreationResponse createEntry(String id, String object) throws ObjectNotAccessibleException;
+    public boolean createEntry(String id, String object) throws ObjectNotAccessibleException;
 
     /**
      * Update an existing entry
@@ -33,7 +31,7 @@ public interface DBAccessObject {
      * @return EntryUpdationResponse : describes the status of update request
      * @throws ObjectNotAccessibleException
      */
-    public EntryUpdationResponse updateEntry(String id, String object) throws ObjectNotAccessibleException;
+    public boolean updateEntry(String id, String object) throws ObjectNotAccessibleException;
 
     /**
      * Delete an existing entry
@@ -41,5 +39,5 @@ public interface DBAccessObject {
      * @return EntryDeletionResponse : describes the status of delete request
      * @throws ObjectNotAccessibleException
      */
-    public EntryDeletionResponse deleteEntry(String id, String object) throws ObjectNotAccessibleException;
+    public boolean deleteEntry(String id) throws ObjectNotAccessibleException;
 }

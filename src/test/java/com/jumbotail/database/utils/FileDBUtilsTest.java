@@ -15,7 +15,7 @@ public class FileDBUtilsTest {
 
 
     private File file;
-    private static final String FILENAME = "a.txt";
+    private static final String FILENAME = "db.txt";
 
     @Before
     public void beforeMethod() throws IOException {
