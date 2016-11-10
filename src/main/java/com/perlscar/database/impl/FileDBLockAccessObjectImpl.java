@@ -8,6 +8,7 @@ import com.perlscar.exception.ObjectNotAccessibleException;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by achit.ojha on 10/11/16.
@@ -27,19 +28,6 @@ public class FileDBLockAccessObjectImpl implements DBLockAccessObject {
     public boolean isLocked(String id) throws ObjectNotAccessibleException {
         try {
             return FileDBUtils.isPresent(file, id);
-        } catch (FileDBException e) {
-            e.printStackTrace();
-            throw new ObjectNotAccessibleException(e);
-        }
-    }
-
-    @Override
-    public boolean fetchLock(String id) throws ObjectNotAccessibleException {
-        try {
-             if(FileDBUtils.isPresent(file, id)) {
-                 return false;
-             }
-            return FileDBUtils.createEntry(file, id);
         } catch (FileDBException e) {
             e.printStackTrace();
             throw new ObjectNotAccessibleException(e);
@@ -80,5 +68,10 @@ public class FileDBLockAccessObjectImpl implements DBLockAccessObject {
             //e.printStackTrace();
             return true;
         }
+    }
+
+    @Override
+    public List<String> getAllEntries() throws ObjectNotAccessibleException {
+        return FileDBUtils.getEntries(file);
     }
 }

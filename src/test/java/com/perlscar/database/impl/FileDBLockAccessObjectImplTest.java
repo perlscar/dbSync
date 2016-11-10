@@ -45,7 +45,7 @@ public class FileDBLockAccessObjectImplTest {
         isLocked = fileDBLockAccessObject.isLocked(id1);
         Assert.assertFalse(isLocked);
 
-        boolean isLockFetched = fileDBLockAccessObject.fetchLock(id1);
+        boolean isLockFetched = fileDBLockAccessObject.fetchLock(id1, val.toString());
         Assert.assertTrue(isLockFetched);
 
         isLocked = fileDBLockAccessObject.isLocked(id1);
