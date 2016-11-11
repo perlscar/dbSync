@@ -25,10 +25,9 @@ public class DBSyncServiceImpl implements DBAccessObject {
 
     @Override
     public String getById(String id) throws ObjectNotAccessibleException, EntryNotPresentException {
-        for(DataCenter dataCenter: dataCenters) {
-            if(dataCenter.getDbLockAccessObject().isLocked(id)) {
-                throw new ObjectNotAccessibleException("Object Locked");
-            }
+        DataCenter dataCenter = dataCenters.get(currentDC);
+        if(dataCenter.getDbLockAccessObject().isLocked(id)) {
+            throw new ObjectNotAccessibleException("Object Locked");
         }
 
         return dataCenters.get(currentDC).getDbAccessObject().getById(id);
